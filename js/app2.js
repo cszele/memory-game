@@ -5,7 +5,7 @@
  let cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
               'fa-anchor', 'fa-anchor',
-                'fa-anchor', 'fa-anchor',
+                'fa-diamond', 'fa-diamond',
                'fa-leaf', 'fa-leaf',
               'fa-bolt', 'fa-bolt',
               'fa-cube', 'fa-cube',
