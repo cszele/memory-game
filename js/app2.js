@@ -5,7 +5,7 @@
  let cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
               'fa-anchor', 'fa-anchor',
-                'fa-diamond', 'fa-diamond',
+                'fa-bomb', 'fa-bomb',
                'fa-leaf', 'fa-leaf',
               'fa-bolt', 'fa-bolt',
               'fa-cube', 'fa-cube',
@@ -110,7 +110,7 @@ function showStars() {
                     clearInterval(timer);
                     allCardsMatch();
                   } else {
-                //if cards don't macth Hide
+                //if cards don't match Hide
                     setTimeout(function() {
                       openCards.forEach(function(card) {
                         card.classList.remove('open', 'show');

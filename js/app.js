@@ -24,6 +24,26 @@ function shuffle(array) {
 
     return array;
 }
+createDeck()
+function createDeck() {
+	var cardList = document.querySelectorAll('.card');
+	const cardArray = Array.from(cardList);
+	const randArray = shuffle(cardArray);
+	for (i=0; i < cardList.length; i++) {  
+		const oldCard = cardList[i];
+		oldCard.remove(); 
+	}
+	const deckFragment = document.createDocumentFragment();
+	for (i=0; i < randArray.length; i++) {
+		const newCard = document.createElement('li');
+		newCard.innerHTML = randArray[i].innerHTML; 
+		newCard.className = randArray[i].className;
+		deckFragment.appendChild(newCard);
+	}
+	const newDeckList = document.querySelector('.deck');
+	newDeckList.appendChild(deckFragment);
+}
+
 
 
 /*
