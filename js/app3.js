@@ -140,6 +140,14 @@ var totalSeconds = 0;
           ++totalSeconds;
           secondsLabel.innerHTML = pad(totalSeconds % 60);
           minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+            function timer(){
+	time++;
+	console.log(time);
+ }
+
+ function clearTimer(){
+ 	clearInterval(time);
+ }
         }
 
         function pad(val) {
@@ -162,17 +170,118 @@ function allCardsMatch () {
       modal.style.display = "block";
       gameOver();
      }
-     // Get the modal
-     let modal = document.querySelector('.modal');
-     let time_results = document.querySelector('.time_results');
-     let move_results = document.querySelector('.move_results');
-     let stars_results = document.querySelector('.stars_results');
+   
+  //calculate the timer
 
-     function gameOver(totalSeconds, moves, starsArray){
-     time_results.innerHTML = totalSeconds;
-     move_results.innerHTML = moves;
-     stars_results.innerHTML = starsArray;
-   }
+var running = 0;
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+
+function startTimer() {
+       if(running == 0) {
+        running = 1;
+        console.log('Timer is on.');
+        increment();
+    } else {
+        running = 0;
+    }
+}
+
+function increment() {
+    if(running == 1) {
+        setTimeout(function() {
+           seconds++;
+           if (seconds === 60) {
+           	seconds = 0;
+           	minutes++;
+           	if (minutes === 60) {
+           		minutes = 0;
+           		hours++;
+           	}
+           }
+
+            timer.innerHTML = hours + ":" + minutes + ":" + seconds;
+            // timerCounter.innerText = timer;
+            increment();
+        }, 1000);
+    }
+}
+
+startTimer()
+
+//stop timer
+function stopTimer() {
+	clearTimeout(timer);
+	hours = 0;
+	minutes = 0;
+	seconds = 0;
+}
+
+//Print results on the popUp screen
+function results() {
+
+	let moves_results = document.querySelector('.movesResults');
+        moves_results.innerHTML = 'Moves: ' + moves;
+
+        // let time_results = document.querySelector('timeResults');
+  //       time_results.innerText = 'Time: ' + timer;
+			   
+}
+
+//pop Up screen appears at the end of the game
+function gameOver() {
+     document.querySelector('.popUpBack').style.display = 'flex';   
+     
+     results();
+	document.querySelector('.newGame').addEventListener('click', function() {
+    document.querySelector('.popUpBack').style.display = 'none';
+    newGame();
+	});
+		document.querySelector('.noThanks').addEventListener('click', function() {
+   document.querySelector('.popUpBack').style.display = 'none';
+    });
+
+   }  
+ 
+
+ //restarting the game
+function restartTheGame() {
+restart.addEventListener('click', function() {
+	moves = 0;
+	stopTimer();
+	// if (starIcon[0].remove()) {
+	// 	starList.appendChild(starIcon);
+	// };
+	cardList.forEach(function (card) {
+	if(card.classList.contains('open') && card.classList.contains('show') && card.classList.contains('match')) {
+		card.classList.remove('open', 'show', 'match');
+	}
+	});
+	createDeck();
+	activateCards();
+	
+    console.log('Restarting the game!')
+});
+}
+restartTheGame()
+
+//to start the new Game
+function newGame() {
+	stopTimer();
+	moves = 0;
+	cardList.forEach(function (card) {
+	if(card.classList.contains('open') && card.classList.contains('show') && card.classList.contains('match')) {
+		card.classList.remove('open', 'show', 'match');
+	}
+});
+
+	createDeck();
+	activateCards();
+		
+	console.log('New game!');
+
+}
 
 //replay
 let replay = document.querySelector('.fa-repeat');
@@ -181,13 +290,5 @@ gameOn();
 checkingCards();
 });
 
-
-
-
-
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+
